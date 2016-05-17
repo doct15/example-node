@@ -17,7 +17,7 @@ bmcgehee/example-node:
     
     # Enter your build steps here!  
     - echo "---Building---"
-    - npm install 
+    - npm install  
     - echo "--Testing--"
     - npm test
     #- docker login -u "$DISTELLI_DOCKER_USERNAME" -p "$DISTELLI_DOCKER_PW" -e "$DISTELLI_DOCKER_EMAIL" "$DISTELLI_DOCKER_ENDPOINT"
