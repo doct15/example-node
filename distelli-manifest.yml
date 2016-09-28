@@ -1,4 +1,4 @@
-distelliapitester/example-node: 
+bmcgehee/example-node: 
   # Distelli Manifest example 
   
   PreBuild:     
@@ -90,5 +90,6 @@ distelliapitester/example-node:
     #- ./register-elb.sh
     - publicip=$(curl -s ident.me) || true
     - 'echo "You can validate the install by pointing your browser at http://$publicip:$PORT"'
+    - 'echo "blah blah blah"'
 
 
