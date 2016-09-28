@@ -20,7 +20,7 @@ app.post('/catch', function(request, response){
   var body = request.body;
   console.log("Received: ", body);
   response.sendStatus(200);
-});
+}); 
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
