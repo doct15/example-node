@@ -23,6 +23,7 @@ bmcgehee/example-node:
     - npm install 
     #- echo "--Testing--" 
     - npm test
+    - echo "Blah blah blah"
    
   PkgInclude:
     - '*'
