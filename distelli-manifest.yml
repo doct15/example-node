@@ -1,4 +1,4 @@
-bmcgehee/example-node: 
+distelliapitester/example-node: 
   # Distelli Manifest example 
   
   PreBuild:     
@@ -35,7 +35,7 @@ bmcgehee/example-node:
 
     #- echo "---Building---"   
     - npm install 
-    #- echo "--Testing--"
+    #- echo "--Testing--" 
     - npm test
     
     - echo "Distelli Build Image?"
