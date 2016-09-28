@@ -21,7 +21,7 @@ distelliapitester/example-node:
 
     #- echo "---Building---"   
     - npm install 
-    #- echo "--Testing--"
+    #- echo "--Testing--" 
     - npm test
    
   PkgInclude:
