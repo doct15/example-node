@@ -1,8 +1,8 @@
-master# Getting Started Building and Deploying with Distelli - NodeJS Example 
+develop# Getting Started Building and Deploying with Distelli - NodeJS Example
 
 This tutorial will get you setup, building, testing, and deploying an application with Distelli in minutes. 
 
-The tutorial assumes you have already:
+The tutorial assumes you have already: 
 * [Created a free Distelli account](https://www.distelli.com/signup)
 * Have a login to, at least, one of the two public repositories.
  - <a href="https://github.com/" target="_blank">https://github.com/</a>
@@ -10,7 +10,7 @@ The tutorial assumes you have already:
  
 The scenario also expects that you have a **Destination** server available to do deployments of the example application.
 
-### Step 1. Prepare Server for Deployment   
+### Step 1. Prepare Server for Deployment 
 
 To enable auto deployment of an application you must have a destination server to deploy to.
 
@@ -30,7 +30,7 @@ Install the agent and return to this document.
 
 You have forked the repository to your Github account. Good job!
 
-You can view the forked repository in your Github account at:    
+You can view the forked repository in your Github account at:
 
 ```
 https://github.com/YOUR_GITHUB_USERNAME/nodejsbuilddeploy
