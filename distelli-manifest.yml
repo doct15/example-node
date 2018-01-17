@@ -11,7 +11,8 @@ bmcgehee/example-node:
   Build:
     # Enter your build steps here!
     # use nvm (node version manager)
-    - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].test | select(.!=null)')
+    - set -x
+    - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].BUILD_NUMBER | select(.!=null)')
     - NEXT_BUILD=$((LAST_BUILD+1))
     - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
     - 'sed "s/^    - BUILD_NUMBER:.*/$BUILD_NUMBER/g" distelli-manifest.yml'
