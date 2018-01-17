@@ -13,8 +13,8 @@ bmcgehee/example-node:
     # use nvm (node version manager)
     - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].test | select(.!=null)')
     - NEXT_BUILD=$((LAST_BUILD+1))
-    - BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""
-    - sed "s/^    - BUILD_NUMBER:.*/$BUILD_NUMBER/g" distelli-manifest.yml
+    - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
+    - 'sed "s/^    - BUILD_NUMBER:.*/$BUILD_NUMBER/g" distelli-manifest.yml'
     - echo "$BUILD_NUMBER" > build_identifier_for_deploys.build
     - git add distelli-manifest.yml
     - git commit -m "[skip ci] increment build $NEXT_BUILD"
