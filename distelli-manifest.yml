@@ -10,8 +10,7 @@ bmcgehee/example-node:
     
   Build:
     # Enter your build steps here!
-    # use nvm (node version manager)
-    - set -x
+    #- set -x
     - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].BUILD_NUMBER | select(.!=null)')
     - NEXT_BUILD=$((LAST_BUILD+1))
     - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
@@ -21,12 +20,12 @@ bmcgehee/example-node:
     #- cat build_identifier_for_deploys.build
     - echo "====================================="
     - echo "# This is Build $NEXT_BUILD      "
-    - echo "# this value is avaialble in build_identifier_for_deploys.build
+    - echo "# this value is avaialble in build_identifier_for_deploys.build"
     - echo "====================================="
     - git add distelli-manifest.yml
     - git commit -m "[skip ci] increment build $NEXT_BUILD"
     - git push
-
+    # use nvm (node version manager)
     - source ~/.nvm/nvm.sh
     # Install node v4.4.7
     #- nvm install v4.4.7
