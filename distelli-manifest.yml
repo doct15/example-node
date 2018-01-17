@@ -15,7 +15,9 @@ bmcgehee/example-node:
     - NEXT_BUILD=$((LAST_BUILD+1))
     - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
     - 'sed "s/^    - BUILD_NUMBER:.*/$BUILD_NUMBER/g" distelli-manifest.yml'
-    - echo "$BUILD_NUMBER" > build_identifier_for_deploys.build
+    - echo "$NEXT_BUILD" > build_identifier_for_deploys.build
+    - echo "LB= $LAST_BUILD - NB= $NEXT_BUILD - BS= $BUILD_STRING"
+    - cat build_identifier_for_deploys.build
     - git add distelli-manifest.yml
     - git commit -m "[skip ci] increment build $NEXT_BUILD"
     - git push
@@ -70,6 +72,7 @@ bmcgehee/example-node:
     - test: "Testing"
     - DISTELLI_TMP_FILENAME: "$DISTELLI_INSTALLHOME/DISTELLI.$DISTELLI_BUILDNUM.$DISTELLI_RELVERSION.tmp"
     - BUILD_NUMBER: "0"
+    - test2: "Testing"
  
   InstallTemplates:
     #- "docker-compose.yml"
