@@ -15,7 +15,7 @@ bmcgehee/example-node:
     - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].BUILD_NUMBER | select(.!=null)')
     - NEXT_BUILD=$((LAST_BUILD+1))
     - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
-    - 'sed "s/^    - BUILD_NUMBER:.*/$BUILD_NUMBER/g" distelli-manifest.yml'
+    - 'sed "s/^    - BUILD_NUMBER:.*/$BUILD_STRING/g" distelli-manifest.yml'
     - echo "$NEXT_BUILD" > build_identifier_for_deploys.build
     - echo "LB= $LAST_BUILD - NB= $NEXT_BUILD - BS= $BUILD_STRING"
     - cat build_identifier_for_deploys.build
