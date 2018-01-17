@@ -15,10 +15,14 @@ bmcgehee/example-node:
     - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].BUILD_NUMBER | select(.!=null)')
     - NEXT_BUILD=$((LAST_BUILD+1))
     - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
-    - 'sed "s/^    - BUILD_NUMBER:.*/$BUILD_STRING/g" distelli-manifest.yml'
-    - echo "$NEXT_BUILD" > build_identifier_for_deploys.build
-    - echo "LB= $LAST_BUILD - NB= $NEXT_BUILD - BS= $BUILD_STRING"
-    - cat build_identifier_for_deploys.build
+    - 'sed -i "s/^    - BUILD_NUMBER:.*/$BUILD_STRING/g" distelli-manifest.yml'
+    #- echo "$NEXT_BUILD" > build_identifier_for_deploys.build
+    #- echo "LB= $LAST_BUILD - NB= $NEXT_BUILD - BS= $BUILD_STRING"
+    #- cat build_identifier_for_deploys.build
+    - echo "====================================="
+    - echo "# This is Build $NEXT_BUILD      "
+    - echo "# this value is avaialble in build_identifier_for_deploys.build
+    - echo "====================================="
     - git add distelli-manifest.yml
     - git commit -m "[skip ci] increment build $NEXT_BUILD"
     - git push
@@ -101,6 +105,7 @@ bmcgehee/example-node:
     #- sudo apt-get -y install nodejs 
  
   PostInstall:
+    - export MYBUILD=$(cat build_identifier_for_deploys.build)
     #- echo "---PostInstall---"
     #- cat bin/startup.sh
     #- echo "cat views/index.pug"
@@ -111,6 +116,7 @@ bmcgehee/example-node:
     #- cat node_modules/pug-linker/index.js
 
   PreStart:
+    - export MYBUILD=$(cat build_identifier_for_deploys.build)
     #- echo "$PATH" 
     #- which aws
     # Check to see if aws cli is installed
@@ -134,11 +140,13 @@ bmcgehee/example-node:
     #- sleep 60
  
   Exec:
+    - export MYBUILD=$(cat build_identifier_for_deploys.build)
     - source ~/.nvm/nvm.sh
     - nvm use v6.9.4
     - node app.js 
      
   PostStart:
+    - export MYBUILD=$(cat build_identifier_for_deploys.build)
     #- ./register-elb.sh
     - publicip=$(curl -s ident.me) || true
     - privateip=$(hostname -i)
