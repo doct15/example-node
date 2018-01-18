@@ -75,7 +75,7 @@ bmcgehee/example-node:
     - PATH: "/usr/local/bin:$PATH"
     - test: "Testing"
     - DISTELLI_TMP_FILENAME: "$DISTELLI_INSTALLHOME/DISTELLI.$DISTELLI_BUILDNUM.$DISTELLI_RELVERSION.tmp"
-    - BUILD_NUMBER: "3"
+    - BUILD_NUMBER: "4"
     - test2: "Testing"
  
   InstallTemplates:
