@@ -1,6 +1,5 @@
 bmcgehee/example-node: 
-  # Distelli Manifest example  kkk
-  # TEST
+  # Distelli Manifest example
   
   PreBuild:       
     # Add any build pre-requisites here 
@@ -10,55 +9,18 @@ bmcgehee/example-node:
     
   Build:
     # Enter your build steps here!
-    #- set -x
-    - LAST_BUILD=$(python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < distelli-manifest.yml | jq -r '.["bmcgehee/example-node"].Env[].BUILD_NUMBER | select(.!=null)')
-    - NEXT_BUILD=$((LAST_BUILD+1))
-    - 'BUILD_STRING="    - BUILD_NUMBER: \"$NEXT_BUILD\""'
-    - 'sed -i "s/^    - BUILD_NUMBER:.*/$BUILD_STRING/g" distelli-manifest.yml'
-    #- echo "$NEXT_BUILD" > build_identifier_for_deploys.build
-    #- echo "LB= $LAST_BUILD - NB= $NEXT_BUILD - BS= $BUILD_STRING"
-    #- cat build_identifier_for_deploys.build
-    - echo "====================================="
-    - echo "# This is Build $NEXT_BUILD      "
-    - echo "# this value is avaialble in build_identifier_for_deploys.build"
-    - echo "====================================="
-    - git add distelli-manifest.yml
-    - git commit -m "[skip ci] increment build $NEXT_BUILD"
-    - git push
     # use nvm (node version manager)
     - source ~/.nvm/nvm.sh
-    # Install node v4.4.7
-    #- nvm install v4.4.7
     # Install node v6.9.4
     - nvm install v6.9.4
     # install latest npm version globally 
     - npm install npm -g   
-
-    # Testing
-    #- sudo apt-get update
-    #- sudo apt-get -y install dnsutils
-    #- sudo apt-get -y install iputils-ping
-    #- nslookup skimdb.npmjs.com
-    #- dig skimdb.npmjs.com
-    #- ping -c 3 skimdb.npmjs.com
-    #- npm config set registry https://skimdb.npmjs.com/registry
-    #- nslookup registry.npmjs.com
-    #- dig registry.npmjs.com
-    #- ping -c 3 registry.npmjs.com
-    #- npm config set registry https://registry.npmjs.org
-
-
     - echo "---Building---"   
     - npm install 
     - echo "--Testing--"
     #- npm test
     
-    #- echo "Distelli Build Image?"
-    #- echo "====================="
-    #- cat /distelli_build_image.info || true
-   
   PkgInclude:
-    - build_identifier_for_deploys.build
     - '*'
 
   ###Below is deployment phases   
@@ -68,85 +30,34 @@ bmcgehee/example-node:
     # These are available during all phases of a deploy.
     - PORT: "3000"
     - DISTELLI_INSTALLVIEW: "templates/notset.json"
-    - ELBNAME: "bmtest2"
-    - REGION: "eu-west-1"
-    - AWS_ACCESS_KEY_ID: "Set in Distelli"
-    - AWS_SECRET_ACCESS_KEY: "Set in Distelli"
     - PATH: "/usr/local/bin:$PATH"
-    - test: "Testing"
     - DISTELLI_TMP_FILENAME: "$DISTELLI_INSTALLHOME/DISTELLI.$DISTELLI_BUILDNUM.$DISTELLI_RELVERSION.tmp"
-    - BUILD_NUMBER: "4"
-    - test2: "Testing"
  
   InstallTemplates:
-    #- "docker-compose.yml"
-    #- "bin/startup.sh"
-    #- ["views/index.pug","../../../home/distelli"]
     - views/index.pug
-    #- conf/compute/httpHealthChecks/01.json
-    #- ["deregister-elb.sh","."]
-    #- ["register-elb.sh","."]
 
   PreInstall:  
     # Use this section to install any deployment pre-requisites.
     - echo "---PreInstall---"
     - START=$(date +%s)
     - echo "$START" > "$DISTELLI_TMP_FILENAME"
-
     - echo "--Installing deploy dependencies--"
     - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
     - source ~/.nvm/nvm.sh
     - nvm install v6.9.4    
-    #- echo "-Updating apt-get-"
-    #- sudo apt-get -y clean
-    #- sudo apt-get -y update
-    #- echo "-Installing nodejs-"
-    #- sudo apt-get -y install nodejs 
  
   PostInstall:
-    - export MYBUILD=$(cat build_identifier_for_deploys.build)
-    #- echo "---PostInstall---"
-    #- cat bin/startup.sh
-    #- echo "cat views/index.pug"
-    #- cat views/index.pug
-    #- echo "ls -l /home/distelli"
-    #- echo "cat /home/distelli/index.pug" || true
-    #- cat conf/compute/httpHealthChecks/01.json
-    #- cat node_modules/pug-linker/index.js
+    - echo "---PostInstall---"
 
   PreStart:
-    - export MYBUILD=$(cat build_identifier_for_deploys.build)
-    #- echo "$PATH" 
-    #- which aws
-    # Check to see if aws cli is installed
-    #- if which aws >/dev/null; then
-    #-   echo "--AWS CLI exists--"
-    #- else
-    #-   echo "--Installing AWS CLI--"
-    #   Check to see if unzip is installed
-    #-   if which unzip >/dev/null; then
-    #-     echo "--Unzip exists--"
-    #-   else
-    #-     echo "--Installing unzip--"
-    #-     sudo apt-get -y install unzip
-    #-   fi
-    #-   curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-    #-   unzip awscli-bundle.zip
-    #-   sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-    #- fi
-    #- ./deregister-elb.sh
-    #- echo "Deregistered with the ELB. Waiting 1 minute"
-    #- sleep 60
+    - echo "---PreStart---"
  
   Exec:
-    - export MYBUILD=$(cat build_identifier_for_deploys.build)
     - source ~/.nvm/nvm.sh
     - nvm use v6.9.4
     - node app.js 
      
   PostStart:
-    - export MYBUILD=$(cat build_identifier_for_deploys.build)
-    #- ./register-elb.sh
     - publicip=$(curl -s ident.me) || true
     - privateip=$(hostname -i)
     - 'echo "You can validate the install by pointing your browser at http://$publicip:$PORT"'
@@ -155,9 +66,6 @@ bmcgehee/example-node:
     - rm "$DISTELLI_TMP_FILENAME"
     - END=$(date +%s)
     - echo $((END-START)) | awk '{printf " This deploy took %02d minutes and %02d seconds\n",int($1/60), int($1%60)}'
-    #- echo "Forcing failure in PostStart"
-    #- sleep 120
-    #- exit 1
      
 
 
