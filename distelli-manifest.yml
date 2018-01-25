@@ -2,7 +2,7 @@ bmcgehee20180124/example-node:
   # Distelli Manifest example
   
   PreBuild:       
-    # Add any build pre-requisites here 
+    # Add any build pre-requisites here (This is a change)
     - echo "---PreBuild---"
     - echo "Installing NVM"
     - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
