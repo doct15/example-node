@@ -1,5 +1,5 @@
 bmpuppet/example-node: 
-  # Distelli Manifest example
+  # Distelli Manifest example 
   
   PreBuild:       
     # Add any build pre-requisites here (This is a change)
