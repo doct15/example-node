@@ -59,7 +59,7 @@ bmcgehee/example-node:
      
   PostStart:
     - publicip=$(curl -s ident.me) || true
-    - privateip=$(hostname -i)
+    - privateip=$(hostname -I)
     - 'echo "You can validate the install by pointing your browser at http://$publicip:$PORT"'
     - 'echo "or maybe http://$privateip:$PORT"'
     - START=$(cat $DISTELLI_TMP_FILENAME)
