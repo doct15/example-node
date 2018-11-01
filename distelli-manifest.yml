@@ -24,8 +24,8 @@ bmcgehee/example-node:
   PkgInclude:
     - '*'
     
-  CustomVersionCmd:
-    - echo "v1.234.$DISTELLI_BUILDNUM"
+  #CustomVersionCmd:
+  #  - echo "v1.234.$DISTELLI_BUILDNUM"
 
   ###Below is deployment phases   
   
