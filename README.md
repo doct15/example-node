@@ -10,7 +10,7 @@ The tutorial assumes you have already:
  
 The scenario also expects that you have a **Destination** server available to do deployments of the example application.
 
-### Step 1. Prepare Server for Deployment 
+### Step 1. Prepare Server for Deployment    
 
 To enable auto deployment of an application you must have a destination server to deploy to.
 
