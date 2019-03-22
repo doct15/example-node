@@ -1,13 +1,13 @@
 bmcgehee20190318/example-node: 
   # Distelli Manifest example 
-  
+
   PreBuild:       
     # Add any build pre-requisites here (This is a change)
     - echo "---PreBuild---"
     - echo "Installing NVM"
     - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 
-    
+
   Build:
     # Enter your build steps here!
     # use nvm (node version manager)
@@ -19,16 +19,28 @@ bmcgehee20190318/example-node:
     - echo "---Building---"   
     - npm install 
     - echo "--Testing--"
+    - sleep 2
+    - echo "Running Tests"
+    - sleep 1
+    - for i in {1..121}; do
+    -   echo "Running test $i in 121"
+    -   for j in {1..$(echo $((1 + RANDOM % 10)))}; do
+    -     echo -n "#"
+    -     sleep $(echo | awk -v RND="$RANDOM" '{print RND / 70000}')
+    -   done
+    -   echo ""
+    - done
+    - echo "All Tests completed successfully"
     #- npm test
-    
+
   PkgInclude:
     - '*'
-    
-  #CustomVersionCmd:
-  #  - echo "v1.234.$DISTELLI_BUILDNUM"
+
+  CustomVersionCmd:
+    - echo "v1.234.$DISTELLI_BUILDNUM"
 
   ###Below is deployment phases   
-  
+
   Env:
     # Set any environment variables in this section.   
     # These are available during all phases of a deploy.
@@ -36,7 +48,7 @@ bmcgehee20190318/example-node:
     - DISTELLI_INSTALLVIEW: "templates/notset.json"
     - PATH: "/usr/local/bin:$PATH"
     - DISTELLI_TMP_FILENAME: "$DISTELLI_INSTALLHOME/DISTELLI.$DISTELLI_BUILDNUM.$DISTELLI_RELVERSION.tmp"
- 
+
   InstallTemplates:
     - views/index.pug
 
@@ -49,18 +61,18 @@ bmcgehee20190318/example-node:
     - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
     - source ~/.nvm/nvm.sh
     - nvm install v6.9.4    
- 
+
   PostInstall:
     - echo "---PostInstall---"
 
   PreStart:
     - echo "---PreStart---"
- 
+
   Exec:
     - source ~/.nvm/nvm.sh
     - nvm use v6.9.4
     - node app.js 
-     
+
   PostStart:
     - publicip=$(curl -s ident.me) || true
     - privateip=$(hostname -I)
