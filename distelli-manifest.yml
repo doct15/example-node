@@ -23,7 +23,7 @@ bmcgehee/example-node:
     - echo "Running Tests"
     - sleep 1
     - for i in {1..45}; do
-    -   echo -n "Running test $i in 45 "
+    -   echo -n "Running test $i of 45 "
     -   for (( j=1; j<=$((1 + RANDOM % 10)); j++ )); do
     -     echo -n "#"
     -     sleep $(echo | awk -v RND="$RANDOM" '{print RND / 100000}')
